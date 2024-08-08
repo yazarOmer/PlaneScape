@@ -33,7 +33,9 @@ export const register = async (req: Request, res: Response) => {
             success: true,
             message: "User created successfully",
             data: {
-                ...user
+                username: user.username,
+                email: user.email,
+                id: user._id
             } 
         })
     } catch (error) {
@@ -42,7 +44,35 @@ export const register = async (req: Request, res: Response) => {
 }
 
 export const login = async (req: Request, res: Response) => {
-    res.send("Login controller")
+    const { email, password } = req.body
+
+    try {
+        const user = await User.findOne({ email })
+
+        if (!user) {
+            return res.status(400).json({ success: false, message: "Invalid credentials"})
+        }
+
+        const isPasswordValid = await bcryptjs.compare(password, user.password)
+
+        if (!isPasswordValid) {
+            return res.status(400).json({ success: false, message: "Invalid credentials "})
+        }
+
+        setToken(res, user._id)
+
+        res.status(200).json({
+            success: true,
+            message: "User logged in successfully",
+            data: {
+                username: user.username,
+                email: user.email,
+                id: user._id
+            } 
+        })
+    } catch (error) {
+        res.status(400).json({ success: false, message: error.message })
+    }
 }
 
 export const logout = async (req: Request, res: Response) => {
