@@ -32,7 +32,9 @@ export const register = async (req: Request, res: Response) => {
         res.status(201).json({
             success: true,
             message: "User created successfully",
-            data: user
+            data: {
+                ...user
+            } 
         })
     } catch (error) {
         res.status(400).json({ success: false, message: error.message })
@@ -44,5 +46,6 @@ export const login = async (req: Request, res: Response) => {
 }
 
 export const logout = async (req: Request, res: Response) => {
-    res.send("Logout controller")
+    res.clearCookie("token")
+    res.status(200).json({ success: true, message: "User logged out successfully" })
 }
