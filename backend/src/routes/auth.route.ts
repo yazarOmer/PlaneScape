@@ -3,7 +3,7 @@ import express, { Request, Response } from "express"
 
 const router = express.Router()
 
-router.get("/register", register)
+router.post("/register", register)
 
 router.get("/login", login)
 
