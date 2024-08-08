@@ -6,6 +6,8 @@ import authRoutes from "./routes/auth.route"
 
 const app = express()
 
+app.use(express.json())
+
 const port = process.env.PORT || 3000
 
 app.listen(port, () => {
@@ -14,7 +16,3 @@ app.listen(port, () => {
 })
 
 app.use('/api/auth', authRoutes)
-
-app.get('/', (req: Request, res: Response) => {
-    res.send("hello world")
-})
