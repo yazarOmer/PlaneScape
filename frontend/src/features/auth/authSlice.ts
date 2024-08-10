@@ -10,10 +10,10 @@ interface AuthState {
   isLoading: boolean
 }
 
-const fetchUser = () => {}
+const user = JSON.parse(localStorage.getItem("user")!);
 
 const initialState: AuthState = {
-  user:  null,
+  user:  user || null,
   isAuthenticated: false,
   isError: false,
   error: null,
