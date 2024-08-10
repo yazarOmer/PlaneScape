@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { User } from "../models/user.model";
 import bcryptjs from "bcryptjs"
 import { setToken } from "../helpers/setToken";
+import { JwtPayload } from "jsonwebtoken";
 
 export const register = async (req: Request, res: Response) => {
     const { username, email, password } = req.body
@@ -83,4 +84,18 @@ export const login = async (req: Request, res: Response) => {
 export const logout = async (req: Request, res: Response) => {
     res.clearCookie("token")
     res.status(200).json({ success: true, message: "User logged out successfully" })
+}
+
+export const checkAuth = async (req: Request & { userId: string | JwtPayload }, res: Response) => {
+    try {
+        const user = await User.findById(req.userId)
+
+        if (!user) {
+            return res.status(400).json({ success: false, message: "User not found"})
+        }
+
+        res.status(200).json({ success: true, user })
+    } catch (error) {
+        res.status(400).json({ success: false, message: error.message})
+    }
 }
