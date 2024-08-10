@@ -14,6 +14,16 @@ const register = async (data : { username: string, email: string, password: stri
     return response.data;
 };
 
+const login = async (data : { email: string, password: string}) => {
+    const response = await axios.post(API_URL + "login", data);
+
+    if (response.data && response.data.user !== null) {
+        localStorage.setItem('user', JSON.stringify(response.data.user))
+    }
+
+    return response.data;
+};
+
 const checkAuth = async () => {
     const response = await axios.get(API_URL + "check-auth");
 
@@ -26,7 +36,8 @@ const checkAuth = async () => {
 
 const authActions = {
     register,
-    checkAuth
+    checkAuth,
+    login
 };
 
 export default authActions;

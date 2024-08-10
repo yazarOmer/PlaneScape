@@ -2,8 +2,37 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { LoginSchema } from "../../schemas";
 import * as z from "zod";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { AppDispatch, RootState } from "../../store/store";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { toast } from "sonner";
+import { login, resetAuthState } from "../../features/auth/authSlice";
 
 export const LoginForm = () => {
+  const {
+    user,
+    isAuthenticated,
+    isError,
+    isLoading,
+    isSuccess,
+    error: errorMsg,
+  } = useSelector((state: RootState) => state.auth);
+
+  const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isError && errorMsg) {
+      toast.error(errorMsg);
+    } else if (isSuccess && user && isAuthenticated) {
+      navigate("/dashboard");
+    }
+
+    dispatch(resetAuthState());
+  }, [isError, errorMsg, isSuccess, user, isAuthenticated]);
+
   const {
     register,
     handleSubmit,
@@ -16,9 +45,10 @@ export const LoginForm = () => {
     },
   });
 
-  const onSubmit = (data: z.infer<typeof LoginSchema>) => {
-    console.log(data);
+  const onSubmit = async (data: z.infer<typeof LoginSchema>) => {
+    await dispatch(login(data));
   };
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="w-full mb-4 space-y-2">
       <div className="flex flex-col gap-y-2">
@@ -52,8 +82,11 @@ export const LoginForm = () => {
         </p>
       </div>
 
-      <button className="w-full mt-3 bg-zinc-900 hover:bg-zinc-800 transition-all duration-200 text-white rounded-md py-2">
-        Sign in
+      <button
+        disabled={isLoading}
+        className="w-full mt-3 bg-zinc-900 hover:bg-zinc-800 transition-all duration-200 text-white rounded-md py-2"
+      >
+        {isLoading ? "Loading..." : "Sign in"}
       </button>
     </form>
   );

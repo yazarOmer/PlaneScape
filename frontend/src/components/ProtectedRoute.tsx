@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../store/store";
-import { Navigate, Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { checkAuth } from "../features/auth/authSlice";
