@@ -31,8 +31,6 @@ export const register = async (req: Request, res: Response) => {
 
         setToken(res, user._id)
 
-        console.log(res.cookie)
-
         return res.status(201).json({
             success: true,
             message: "User created successfully",

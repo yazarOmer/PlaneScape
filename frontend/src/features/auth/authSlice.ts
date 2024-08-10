@@ -41,6 +41,24 @@ export const register = createAsyncThunk(
     }
 );
 
+export const checkAuth = createAsyncThunk(
+    "auth/checkAuth",
+    async (_, thunkAPI) => {
+        try {
+            return await authActions.checkAuth();
+        } catch (error: any) {
+            const message =
+                (error.response &&
+                    error.response.data &&
+                    error.response.data.message) ||
+                error.message ||
+                error.toString();
+
+            return thunkAPI.rejectWithValue(message);
+        }
+    }
+);
+
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
@@ -67,6 +85,22 @@ export const authSlice = createSlice({
         state.isError = true;
         state.error = action.payload as string;
         state.user = null;
+    })
+    .addCase(checkAuth.pending, (state) => {
+        state.isLoading = true;
+    })
+    .addCase(checkAuth.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.user = action.payload.user;
+        state.isAuthenticated = true
+    })
+    .addCase(checkAuth.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.error = action.payload as string;
+        state.user = null;
+        state.isAuthenticated = false
     })
   },
 })

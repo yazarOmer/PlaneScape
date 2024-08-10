@@ -9,6 +9,7 @@ import { Toaster } from "sonner";
 import { Provider } from "react-redux";
 import { store } from "./store/store.ts";
 import DashboardPage from "./pages/Dashboard.tsx";
+import ProtectedRoute from "./components/ProtectedRoute.tsx";
 
 const router = createBrowserRouter([
   {
@@ -24,8 +25,13 @@ const router = createBrowserRouter([
     element: <RegisterPage />,
   },
   {
-    path: "/dashboard",
-    element: <DashboardPage />,
+    element: <ProtectedRoute />,
+    children: [
+      {
+        path: "/dashboard",
+        element: <DashboardPage />,
+      },
+    ],
   },
 ]);
 

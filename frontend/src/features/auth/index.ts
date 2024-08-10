@@ -14,8 +14,19 @@ const register = async (data : { username: string, email: string, password: stri
     return response.data;
 };
 
+const checkAuth = async () => {
+    const response = await axios.get(API_URL + "check-auth");
+
+    if (response.data && response.data.user !== null) {
+        localStorage.setItem('user', JSON.stringify(response.data.user))
+    }
+
+    return response.data;
+};
+
 const authActions = {
     register,
+    checkAuth
 };
 
 export default authActions;
