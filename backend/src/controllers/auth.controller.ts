@@ -27,8 +27,11 @@ export const register = async (req: Request, res: Response) => {
         })
 
         await user.save()
+        
 
         setToken(res, user._id)
+
+        console.log(res.cookie)
 
         return res.status(201).json({
             success: true,
