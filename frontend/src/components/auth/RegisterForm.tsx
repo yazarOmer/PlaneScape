@@ -2,8 +2,40 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { RegisterSchema } from "../../schemas";
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { AppDispatch, RootState } from "../../store/store";
+import {
+  register as registerAction,
+  resetAuthState,
+} from "../../features/auth/authSlice";
+import { useEffect } from "react";
 
 export const RegisterForm = () => {
+  const {
+    user,
+    isAuthenticated,
+    isError,
+    isLoading,
+    isSuccess,
+    error: errorMsg,
+  } = useSelector((state: RootState) => state.auth);
+
+  const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isError && errorMsg) {
+      toast.error(errorMsg);
+    } else if (isSuccess && user && isAuthenticated) {
+      navigate("/dashboard");
+    }
+
+    dispatch(resetAuthState());
+  }, [isError, errorMsg, isSuccess, user, isAuthenticated]);
+
   const {
     register,
     handleSubmit,
@@ -16,8 +48,8 @@ export const RegisterForm = () => {
     },
   });
 
-  const onSubmit = (data: z.infer<typeof RegisterSchema>) => {
-    console.log(data);
+  const onSubmit = async (data: z.infer<typeof RegisterSchema>) => {
+    await dispatch(registerAction(data));
   };
 
   return (
@@ -68,8 +100,11 @@ export const RegisterForm = () => {
         </p>
       </div>
 
-      <button className="w-full mt-1 bg-zinc-900 hover:bg-zinc-800 transition-all duration-200 text-white rounded-md py-2">
-        Create an account
+      <button
+        disabled={isLoading}
+        className="w-full mt-1 bg-zinc-900 disabled:cursor-not-allowed disabled:bg-zinc-800 hover:bg-zinc-800 transition-all duration-200 text-white rounded-md py-2"
+      >
+        {!isLoading ? "Create an account" : "Creating..."}
       </button>
     </form>
   );
