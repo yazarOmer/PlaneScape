@@ -4,16 +4,23 @@ import { Link } from "react-router-dom";
 import { FaEarthAmericas } from "react-icons/fa6";
 import { FaUserCircle } from "react-icons/fa";
 import { useSelector } from "react-redux";
-import { RootState } from "../store/store";
+import { AppDispatch, RootState } from "../store/store";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { logout } from "../features/auth/authSlice";
 
 export const Header = () => {
   const { user } = useSelector((state: RootState) => state.auth);
+  const dispatch = useDispatch<AppDispatch>();
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const toggleHandle = () => {
     setIsOpen((prev) => !prev);
+  };
+
+  const onLogout = async () => {
+    await dispatch(logout());
   };
 
   return (
@@ -53,7 +60,10 @@ export const Header = () => {
               >
                 My boards
               </Link>
-              <button className="text-sm font-semibold p-2 rounded-md transition-all duration-200 hover:bg-slate-100">
+              <button
+                onClick={() => onLogout()}
+                className="text-sm font-semibold p-2 rounded-md transition-all duration-200 hover:bg-slate-100"
+              >
                 Sign out
               </button>
             </div>

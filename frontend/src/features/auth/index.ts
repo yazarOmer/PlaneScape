@@ -24,6 +24,17 @@ const login = async (data : { email: string, password: string}) => {
     return response.data;
 };
 
+const logout = async () => {
+    const response = await axios.post(API_URL + "logout");
+
+    if (response.data && response.data.user !== null) {
+        // localStorage.setItem('user', JSON.stringify(response.data.user))
+        localStorage.removeItem('user')
+    }
+
+    return response.data;
+};
+
 const checkAuth = async () => {
     const response = await axios.get(API_URL + "check-auth");
 
@@ -37,7 +48,8 @@ const checkAuth = async () => {
 const authActions = {
     register,
     checkAuth,
-    login
+    login,
+    logout
 };
 
 export default authActions;

@@ -24,7 +24,7 @@ export const LoginForm = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (isError && errorMsg) {
+    if (isError && errorMsg && errorMsg !== "Unauthorized - no token") {
       toast.error(errorMsg);
     } else if (isSuccess && user && isAuthenticated) {
       navigate("/dashboard");
