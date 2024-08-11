@@ -24,7 +24,7 @@ export const Header = () => {
   };
 
   return (
-    <header className="flex items-center justify-between">
+    <header className="flex items-center justify-between mb-5">
       <div className="flex items-center gap-2">
         <IoIosAirplane className="bg-purple-900 text-zinc-300 w-6 h-6 rounded-full" />
         <h2 className="font-bold uppercase text-gray-700">Plane Scape</h2>
