@@ -3,34 +3,22 @@ import { FaPlane } from "react-icons/fa";
 import { FaPlaneDeparture } from "react-icons/fa";
 import { FaPlaneArrival } from "react-icons/fa";
 import { MdDateRange } from "react-icons/md";
-import { flights } from "../data/flights";
 
 export const BookFlight = () => {
   const [type, setType] = useState<"round-trip" | "one-way">("round-trip");
+  const [destinationList, setDestinationList] = useState([]);
+  const [departure, setDeparture] = useState("");
+  const [arrival, setArrival] = useState("");
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const response = await fetch(
-  //       "https://api.schiphol.nl/public-flights/destinations",
-  //       {
-  //         headers: {
-  //           Accept: "application/json",
-  //           app_id: "52e43589",
-  //           app_key: "8c6174e709917b26d20a599b0029e0ae",
-  //           ResourceVersion: "v4",
-  //         },
-  //         mode: "no-cors",
-  //       }
-  //     );
+  useEffect(() => {
+    const fetchDestinations = async () => {
+      const response = await fetch("http://localhost:5000/api/destinations");
+      const data = await response.json();
+      setDestinationList(data);
+    };
 
-  //     const data = await response.json();
-  //   };
-
-  //   fetchData();
-  // }, []);
-
-  const flightsArr = flights;
-  console.log(flightsArr.length);
+    fetchDestinations();
+  }, []);
 
   return (
     <div className="flex flex-col w-full bg-white p-5 rounded-xl">
@@ -70,33 +58,29 @@ export const BookFlight = () => {
           <div className="relative">
             <FaPlaneDeparture className="absolute left-3 top-2 text-violet-900" />
             <input
+              value={departure}
+              onChange={(e) => setDeparture(e.target.value)}
               list="country"
               className="border border-gray-500/50 w-[200px] h-8 rounded-l-full px-10"
             />
             <datalist id="country">
-              <option value="U.S." />
-              <option value="France" />
-              <option value="China" />
-              <option value="Cambodia" />
-              <option value="Chile" />
-              <option value="Canada" />
-              <option value="Poland" />
+              {destinationList.map((dest: { city: string }, index) => {
+                return <option key={index} value={dest.city} />;
+              })}
             </datalist>
           </div>
           <div className="relative">
             <FaPlaneArrival className="absolute left-3 top-2 text-violet-900" />
             <input
+              value={arrival}
+              onChange={(e) => setArrival(e.target.value)}
               list="country"
               className="border border-gray-500/50 w-[200px] h-8 rounded-r-full px-10"
             />
             <datalist id="country">
-              <option value="U.S." />
-              <option value="France" />
-              <option value="China" />
-              <option value="Cambodia" />
-              <option value="Chile" />
-              <option value="Canada" />
-              <option value="Poland" />
+              {destinationList.map((dest: { city: string }, index) => {
+                return <option key={index} value={dest.city} />;
+              })}
             </datalist>
           </div>
         </div>
