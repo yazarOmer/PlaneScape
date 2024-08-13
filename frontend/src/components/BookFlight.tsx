@@ -1,11 +1,37 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaPlane } from "react-icons/fa";
 import { FaPlaneDeparture } from "react-icons/fa";
 import { FaPlaneArrival } from "react-icons/fa";
 import { MdDateRange } from "react-icons/md";
+import { flights } from "../data/flights";
 
 export const BookFlight = () => {
   const [type, setType] = useState<"round-trip" | "one-way">("round-trip");
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const response = await fetch(
+  //       "https://api.schiphol.nl/public-flights/destinations",
+  //       {
+  //         headers: {
+  //           Accept: "application/json",
+  //           app_id: "52e43589",
+  //           app_key: "8c6174e709917b26d20a599b0029e0ae",
+  //           ResourceVersion: "v4",
+  //         },
+  //         mode: "no-cors",
+  //       }
+  //     );
+
+  //     const data = await response.json();
+  //   };
+
+  //   fetchData();
+  // }, []);
+
+  const flightsArr = flights;
+  console.log(flightsArr.length);
+
   return (
     <div className="flex flex-col w-full bg-white p-5 rounded-xl">
       <div className="flex items-center justify-between">
