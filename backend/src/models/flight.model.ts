@@ -28,6 +28,20 @@ const flightSchema = new mongoose.Schema(
         required: true,
       },
     },
+    stopBy: {
+      airport: {
+        type: String,
+      },
+      city: {
+        type: String,
+      },
+      departureTime: {
+        type: Date,
+      },
+      gate: {
+        type: String,
+      },
+    },
     arrival: {
       airport: {
         type: String,
@@ -37,7 +51,7 @@ const flightSchema = new mongoose.Schema(
         type: String,
         required: true,
       },
-      departureTime: {
+      arrivalTime: {
         type: Date,
         required: true,
       },

@@ -7,7 +7,7 @@ import express from "express";
 
 const router = express.Router();
 
-router.get("/", getAllFlights);
+router.get("/");
 router.get("/:id", getFlight);
 router.post("/", createFlight);
 
