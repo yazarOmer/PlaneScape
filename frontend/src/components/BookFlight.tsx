@@ -95,6 +95,7 @@ export const BookFlight = () => {
           <div className="relative">
             <MdDateRange className="absolute left-3 top-2 text-violet-900" />
             <input
+              disabled={type === "one-way"}
               type="date"
               className="border border-gray-500/50 w-[200px] px-10 h-8 rounded-r-full"
             />

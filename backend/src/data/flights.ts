@@ -1,6 +1,7 @@
 export const flights = [
   {
     flightNumber: "TK1234",
+    type: "round-trip",
     airline: "Turkish Airlines",
     departure: {
       airport: "IST",
@@ -35,6 +36,7 @@ export const flights = [
   },
   {
     flightNumber: "AF987",
+    type: "round-trip",
     airline: "Air France",
     departure: {
       airport: "CDG",
@@ -69,6 +71,7 @@ export const flights = [
   },
   {
     flightNumber: "BA432",
+    type: "round-trip",
     airline: "British Airways",
     departure: {
       airport: "LHR",
@@ -103,6 +106,7 @@ export const flights = [
   },
   {
     flightNumber: "DL567",
+    type: "round-trip",
     airline: "Delta Airlines",
     departure: {
       airport: "ATL",
@@ -137,6 +141,7 @@ export const flights = [
   },
   {
     flightNumber: "LH345",
+    type: "round-trip",
     airline: "Lufthansa",
     departure: {
       airport: "MUC",
@@ -171,6 +176,7 @@ export const flights = [
   },
   {
     flightNumber: "UA101",
+    type: "round-trip",
     airline: "United Airlines",
     departure: {
       airport: "ORD",
@@ -205,6 +211,7 @@ export const flights = [
   },
   {
     flightNumber: "QR202",
+    type: "round-trip",
     airline: "Qatar Airways",
     departure: {
       airport: "DOH",
@@ -239,6 +246,7 @@ export const flights = [
   },
   {
     flightNumber: "AA789",
+    type: "round-trip",
     airline: "American Airlines",
     departure: {
       airport: "JFK",
@@ -273,6 +281,7 @@ export const flights = [
   },
   {
     flightNumber: "QF123",
+    type: "round-trip",
     airline: "Qantas",
     departure: {
       airport: "SYD",
@@ -307,6 +316,7 @@ export const flights = [
   },
   {
     flightNumber: "NZ678",
+    type: "round-trip",
     airline: "Air New Zealand",
     departure: {
       airport: "AKL",
@@ -341,6 +351,7 @@ export const flights = [
   },
   {
     flightNumber: "LH456",
+    type: "round-trip",
     airline: "Lufthansa",
     departure: {
       airport: "FRA",
