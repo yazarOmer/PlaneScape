@@ -1,14 +1,14 @@
 import {
-  createFlight,
-  getAllFlights,
-  getFlight,
-} from "../controllers/flight.controller";
+  createDestination,
+  getAllDestinations,
+  getDestination,
+} from "../controllers/destination.controller";
 import express from "express";
 
 const router = express.Router();
 
-router.get("/");
-router.get("/:id", getFlight);
-router.post("/", createFlight);
+router.get("/", getAllDestinations);
+router.get("/:id", getDestination);
+router.post("/", createDestination);
 
 export default router;
