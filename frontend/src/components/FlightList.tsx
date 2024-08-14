@@ -20,15 +20,9 @@ export const FlightList = ({ departure, arrival, type }: FlightListProps) => {
   );
 
   const [sortType, setSortType] = useState<string>("default");
-  // const [isOk, setIsOk] = useState(false);
 
-  // const change = () => {
-  //   setIsOk((prev) => !prev);
-  // };
-
-  // const airwaysName: string[] = flights.map((flight: any) => flight.airline);
-  // const airways: string[] = [...new Set(airwaysName)];
   const [selectedAirways, setSelectedAirways] = useState<string[]>(airlines);
+  const [selectedTimes, setSelectedTimes] = useState<string[]>(["am", "pm"]);
 
   const checkboxHandle = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, checked } = e.target;
@@ -40,8 +34,37 @@ export const FlightList = ({ departure, arrival, type }: FlightListProps) => {
     }
   };
 
-  const filteredFlights = flights.filter((flight: any) =>
-    selectedAirways.includes(flight.airline)
+  const timeCheckbox = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value, checked } = e.target;
+
+    if (checked) {
+      if (!selectedTimes.includes(value)) {
+        setSelectedTimes((prev) => [...prev, value]);
+      }
+    } else {
+      if (selectedTimes.includes(value)) {
+        setSelectedTimes((prev) => prev.filter((item) => item !== value));
+      }
+    }
+  };
+
+  const checkTime = (date: string) => {
+    const isDateValid = new Date(date);
+    const hour = isDateValid.getHours();
+    const minutes = isDateValid.getMinutes();
+    const time =
+      hour > 12 && hour < 24 ? "pm" : hour == 12 && minutes > 0 ? "pm" : "am";
+    if (selectedTimes.includes(time)) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  const filteredFlights = flights.filter(
+    (flight: any) =>
+      selectedAirways.includes(flight.airline) &&
+      checkTime(flight.arrival.arrivalTime)
   );
 
   useEffect(() => {
@@ -84,12 +107,46 @@ export const FlightList = ({ departure, arrival, type }: FlightListProps) => {
               <option value="price-desc">Fiyata göre azalan</option>
             </select>
           </div>
-          <div className="flex flex-col items-start mt-5 gap-2">
-            {airlines.map((airway, index) => (
-              <div key={index} className="flex items-center gap-1">
-                <Checkbox airway={airway} onChange={checkboxHandle} />
+          <div className="mt-5">
+            <label htmlFor="sort" className="text-sm font-semibold">
+              Arrival Time
+            </label>
+            <div className="flex flex-col items-start mt-5 gap-2">
+              <div className="flex items-center gap-1">
+                {/* <input
+                  onChange={(e) => timeCheckbox(e)}
+                  type="checkbox"
+                  name="am"
+                  id="am"
+                  value="am"
+                />
+                <label htmlFor="am">am</label> */}
+                <Checkbox data={"am"} onChange={timeCheckbox} />
               </div>
-            ))}
+              <div className="flex items-center gap-1">
+                {/* <input
+                  onChange={(e) => timeCheckbox(e)}
+                  type="checkbox"
+                  name="pm"
+                  id="pm"
+                  value="pm"
+                />
+                <label htmlFor="pm">pm</label> */}
+                <Checkbox data={"pm"} onChange={timeCheckbox} />
+              </div>
+            </div>
+          </div>
+          <div className="mt-5">
+            <label htmlFor="sort" className="text-sm font-semibold">
+              Airlines Included
+            </label>
+            <div className="flex flex-col items-start mt-5 gap-2">
+              {airlines.map((airway, index) => (
+                <div key={index} className="flex items-center gap-1">
+                  <Checkbox data={airway} onChange={checkboxHandle} />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       )}

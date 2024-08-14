@@ -1,11 +1,11 @@
-import { ElementRef, useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 interface CheckboxProps {
-  airway: string;
+  data: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export const Checkbox = ({ airway, onChange }: CheckboxProps) => {
+export const Checkbox = ({ data, onChange }: CheckboxProps) => {
   const checkboxRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -23,12 +23,12 @@ export const Checkbox = ({ airway, onChange }: CheckboxProps) => {
       <input
         onChange={(e) => onChange(e)}
         type="checkbox"
-        name={airway}
-        id={airway}
+        name={data}
+        id={data}
         ref={checkboxRef}
-        value={airway}
+        value={data}
       />
-      <label htmlFor={airway}>{airway}</label>
+      <label htmlFor={data}>{data}</label>
     </>
   );
 };
