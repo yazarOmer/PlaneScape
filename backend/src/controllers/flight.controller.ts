@@ -12,6 +12,8 @@ export const getAllFlights = async (req: Request, res: Response) => {
 
   if (departure) {
     searchCriteria["departure.city"] = departure;
+  }
+  if (arrival) {
     searchCriteria["arrival.city"] = arrival;
   }
   if (type) {

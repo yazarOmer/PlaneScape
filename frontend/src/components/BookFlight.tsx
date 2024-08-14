@@ -30,8 +30,8 @@ export const BookFlight = () => {
   };
 
   const onClickHandle = () => {
-    if (!departure || !arrival) return;
     fetchFlights();
+    console.log(flights);
   };
 
   useEffect(() => {

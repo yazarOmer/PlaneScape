@@ -15,7 +15,6 @@ export const formatHours = (date: Date) => {
 
 export const timeDifference = (departureDate: Date, arrivalDate: Date) => {
   const diff = arrivalDate.getTime() - departureDate.getTime();
-  console.log(arrivalDate);
 
   const second = 1000;
   const minute = 60 * second;
