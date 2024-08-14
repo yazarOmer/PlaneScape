@@ -4,34 +4,30 @@ import { FaPlaneDeparture } from "react-icons/fa";
 import { FaPlaneArrival } from "react-icons/fa";
 import { MdDateRange } from "react-icons/md";
 import { FlightList } from "./FlightList";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../store/store";
+import { fetchFlights } from "../features/flights/flightSlice";
 
 export const BookFlight = () => {
   const [type, setType] = useState<"round-trip" | "one-way">("round-trip");
-  const [destinationList, setDestinationList] = useState([]);
-  const [flights, setFlights] = useState<null | []>(null);
   const [departure, setDeparture] = useState("");
   const [arrival, setArrival] = useState("");
   const [departureDate, setDepartureDate] = useState("");
   const [arrivalDate, setArrivalDate] = useState("");
+  const [destinationList, setDestinationList] = useState([]);
 
-  const fetchFlights = async () => {
-    let URL = `http://localhost:5000/api/flights?departure=${departure}&arrival=${arrival}&type=${type}`;
+  const dispatch = useDispatch<AppDispatch>();
 
-    if (departureDate) {
-      URL += `&departureDate=${departureDate}`;
-    }
-    if (arrivalDate) {
-      URL += `&arrivalDate=${arrivalDate}`;
-    }
-
-    const response = await fetch(URL);
-    const data = await response.json();
-    setFlights(data);
+  const filters = {
+    departure,
+    arrival,
+    type,
+    departureDate,
+    arrivalDate,
   };
 
   const onClickHandle = () => {
-    fetchFlights();
-    console.log(flights);
+    dispatch(fetchFlights(filters));
   };
 
   useEffect(() => {
@@ -140,12 +136,7 @@ export const BookFlight = () => {
         </button>
       </div>
 
-      <FlightList
-        flights={flights}
-        departure={departure}
-        arrival={arrival}
-        type={type}
-      />
+      <FlightList departure={departure} arrival={arrival} type={type} />
     </>
   );
 };

@@ -27,8 +27,9 @@ export const getAllFlights = async (req: Request, res: Response) => {
   }
 
   const flights = await Flight.find(searchCriteria);
+  const airlines = flights.map((item) => item.airline);
 
-  res.status(200).json(flights);
+  res.status(200).json({ flights, airlines });
 };
 
 export const getFlight = async (req: Request, res: Response) => {
