@@ -2,8 +2,29 @@ import { Request, Response } from "express";
 import { Flight } from "../models/flight.model";
 import { flights } from "../data/flights";
 
+interface Criteria {
+  [key: string]: any;
+}
+
 export const getAllFlights = async (req: Request, res: Response) => {
-  const flights = await Flight.find();
+  const { departure, arrival, type, departureDate, arrivalDate } = req.query;
+  const searchCriteria: Criteria = {};
+
+  if (departure) {
+    searchCriteria["departure.city"] = departure;
+    searchCriteria["arrival.city"] = arrival;
+  }
+  if (type) {
+    searchCriteria["type"] = type;
+  }
+  if (departureDate) {
+    searchCriteria["departure.departureTime"] = { $gte: departureDate };
+  }
+  if (arrivalDate) {
+    searchCriteria["arrival.arrivalTime"] = { $lte: arrivalDate };
+  }
+
+  const flights = await Flight.find(searchCriteria);
 
   res.status(200).json(flights);
 };

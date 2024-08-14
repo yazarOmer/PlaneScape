@@ -8,8 +8,31 @@ import { FlightList } from "./FlightList";
 export const BookFlight = () => {
   const [type, setType] = useState<"round-trip" | "one-way">("round-trip");
   const [destinationList, setDestinationList] = useState([]);
+  const [flights, setFlights] = useState<null | []>(null);
   const [departure, setDeparture] = useState("");
   const [arrival, setArrival] = useState("");
+  const [departureDate, setDepartureDate] = useState("");
+  const [arrivalDate, setArrivalDate] = useState("");
+
+  const fetchFlights = async () => {
+    let URL = `http://localhost:5000/api/flights?departure=${departure}&arrival=${arrival}&type=${type}`;
+
+    if (departureDate) {
+      URL += `&departureDate=${departureDate}`;
+    }
+    if (arrivalDate) {
+      URL += `&arrivalDate=${arrivalDate}`;
+    }
+
+    const response = await fetch(URL);
+    const data = await response.json();
+    setFlights(data);
+  };
+
+  const onClickHandle = () => {
+    if (!departure || !arrival) return;
+    fetchFlights();
+  };
 
   useEffect(() => {
     const fetchDestinations = async () => {
@@ -90,6 +113,8 @@ export const BookFlight = () => {
             <div className="relative">
               <MdDateRange className="absolute left-3 top-2 text-violet-900" />
               <input
+                value={departureDate}
+                onChange={(e) => setDepartureDate(e.target.value)}
                 type="date"
                 className="border border-gray-500/50 w-[200px] px-10 h-8 rounded-l-full"
               />
@@ -97,6 +122,8 @@ export const BookFlight = () => {
             <div className="relative">
               <MdDateRange className="absolute left-3 top-2 text-violet-900" />
               <input
+                value={arrivalDate}
+                onChange={(e) => setArrivalDate(e.target.value)}
                 disabled={type === "one-way"}
                 type="date"
                 className="border border-gray-500/50 w-[200px] px-10 h-8 rounded-r-full"
@@ -105,12 +132,20 @@ export const BookFlight = () => {
           </div>
         </div>
 
-        <button className="self-start mt-5 bg-violet-900 text-white h-10 px-5 rounded-md text-sm font-semibold hover:bg-violet-800 transition-all duration-200">
+        <button
+          onClick={onClickHandle}
+          className="self-start mt-5 bg-violet-900 text-white h-10 px-5 rounded-md text-sm font-semibold hover:bg-violet-800 transition-all duration-200"
+        >
           Show flights
         </button>
       </div>
 
-      <FlightList />
+      <FlightList
+        flights={flights}
+        departure={departure}
+        arrival={arrival}
+        type={type}
+      />
     </>
   );
 };
