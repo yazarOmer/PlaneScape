@@ -11,6 +11,7 @@ import { store } from "./store/store.ts";
 import DashboardPage from "./pages/Dashboard.tsx";
 import ProtectedRoute from "./components/ProtectedRoute.tsx";
 import AuthRoute from "./components/AuthRoute.tsx";
+import MyBoards from "./pages/MyBoards.tsx";
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
       {
         path: "/dashboard",
         element: <DashboardPage />,
+      },
+      {
+        path: "/my-boards",
+        element: <MyBoards />,
       },
     ],
   },

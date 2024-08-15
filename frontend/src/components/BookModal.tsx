@@ -5,16 +5,17 @@ import axios from "axios";
 import { toast } from "sonner";
 import { useDispatch } from "react-redux";
 import { closeModal } from "../features/modal/modalSlice";
+import { fetchBookings } from "../features/bookings/bookingSlice";
 
 export const BookModal = () => {
   type extra = {
     name: string;
-    price: Number | undefined;
+    price: string | Number | undefined;
   };
   const { modalContent } = useSelector((state: RootState) => state.modal);
   const dispatch = useDispatch<AppDispatch>();
 
-  const [selectedPrice, setSelectedPrice] = useState<string>();
+  const [selectedPrice, setSelectedPrice] = useState<extra>();
   const [selectedExtras, setSelectedExtras] = useState<extra[]>([]);
 
   const extrasHandle = (value: extra) => {
@@ -33,10 +34,12 @@ export const BookModal = () => {
     const response = await axios.post("http://localhost:5000/api/bookings/", {
       selectedFlight: modalContent,
       selectedExtras,
+      selectedPrice,
     });
 
     if (response.status == 201) {
       toast.success("Created booking successfully");
+      dispatch(fetchBookings());
       dispatch(closeModal());
     }
   };
@@ -55,25 +58,44 @@ export const BookModal = () => {
 
       <div className="flex flex-col w-full space-y-2 mt-3">
         <button
-          onClick={() => setSelectedPrice("economy")}
+          onClick={() =>
+            setSelectedPrice({
+              name: "Economy",
+              price: String(modalContent.price?.economy),
+            })
+          }
           className={`bg-zinc-200 h-8 py-5 flex items-center justify-center rounded-md ${
-            selectedPrice == "economy" ? "border border-black" : "border-none"
+            selectedPrice?.name == "Economy"
+              ? "border border-black"
+              : "border-none"
           }`}
         >
           Economy {"(" + String(modalContent.price?.economy) + "$)"}
         </button>
         <button
-          onClick={() => setSelectedPrice("business")}
+          onClick={() =>
+            setSelectedPrice({
+              name: "Business",
+              price: String(modalContent.price?.business),
+            })
+          }
           className={`bg-zinc-200 h-8 py-5 flex items-center justify-center rounded-md ${
-            selectedPrice == "business" ? "border border-black" : "border-none"
+            selectedPrice?.name == "Business"
+              ? "border border-black"
+              : "border-none"
           }`}
         >
           Business {"(" + String(modalContent.price?.business) + "$)"}
         </button>
         <button
-          onClick={() => setSelectedPrice("first-class")}
+          onClick={() =>
+            setSelectedPrice({
+              name: "First Class",
+              price: String(modalContent.price?.firstClass),
+            })
+          }
           className={`bg-zinc-200 h-8 py-5 flex items-center justify-center rounded-md ${
-            selectedPrice == "first-class"
+            selectedPrice?.name == "First Class"
               ? "border border-black"
               : "border-none"
           }`}

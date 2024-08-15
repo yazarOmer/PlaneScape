@@ -18,11 +18,11 @@ export const createBooking = async (
   res: Response
 ) => {
   const userId = req.userId;
-  const { selectedFlight, selectedExtras } = req.body;
+  const { selectedFlight, selectedExtras, selectedPrice } = req.body;
 
   const booking = new Booking({
     userId,
-    bookingData: { selectedFlight, selectedExtras },
+    bookingData: { selectedFlight, selectedExtras, selectedPrice },
   });
   await booking.save();
 

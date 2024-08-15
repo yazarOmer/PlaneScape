@@ -1,5 +1,5 @@
 export type Flight = {
-  departure?: {
+  departure: {
     airport: string;
     city: string;
     departureTime: string;
@@ -8,10 +8,10 @@ export type Flight = {
   stopBy?: {
     airport: string;
     city: string;
-    arrivalTime: string;
+    arrivalTime: Date;
     gate: string;
   };
-  arrival?: {
+  arrival: {
     airport: string;
     city: string;
     arrivalTime: string;
@@ -38,5 +38,17 @@ export type Flight = {
   reservationPolicy?: {
     cancellation: boolean;
     cancelPrice: Number;
+  };
+};
+
+export type Booking = {
+  userId: string;
+  bookingData: {
+    selectedFlight: Flight;
+    selectedExtras: [{ name: string; price: Number }];
+    selectedPrice: {
+      name: string;
+      price: string;
+    };
   };
 };

@@ -38,7 +38,7 @@ export const Header = () => {
         </div>
         <div className="flex items-center gap-2">
           <FaEarthAmericas className="text-purple-900 h-4 w-4" />
-          <Link to="/discover" className="text-sm font-semibold text-grey-600">
+          <Link to="/dashboard" className="text-sm font-semibold text-grey-600">
             Discover
           </Link>
         </div>

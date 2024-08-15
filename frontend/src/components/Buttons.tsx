@@ -12,14 +12,14 @@ export const Buttons = () => {
         "https://static.toiimg.com/thumb/resizemode-4,width-1200,height-900,msid-80750857/80750857.jpg",
     },
     {
-      id: 1,
+      id: 2,
       title: "hotels",
       icon: <FaRegBuilding className="size-9" />,
       imgSrc:
         "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1b/ed/95/07/limak-eurasia-luxury.jpg?w=700&h=-1&s=1",
     },
     {
-      id: 1,
+      id: 3,
       title: "travel packages",
       icon: <MdOutlineBeachAccess className="size-9" />,
       imgSrc:
@@ -30,6 +30,7 @@ export const Buttons = () => {
     <div className="w-full space-y-5">
       {data.map((item) => (
         <div
+          key={item.id}
           style={{ backgroundImage: `url(${item.imgSrc})` }}
           className="w-full aspect-square bg-center overflow-hidden cursor-pointer group relative bg-cover bg-no-repeat rounded-lg"
         >
