@@ -4,6 +4,7 @@ import { connectDB } from "./db/index";
 dotenv.config({ path: "C:/Users/omer_/OneDrive/Masaüstü/PlaneScape/.env" });
 import authRoutes from "./routes/auth.route";
 import flightRoutes from "./routes/flight.route";
+import bookingRoutes from "./routes/booking.route";
 import destinationRoutes from "./routes/destinations.route";
 import cookieParser from "cookie-parser";
 import cors from "cors";
@@ -24,3 +25,4 @@ app.listen(port, () => {
 app.use("/api/auth", authRoutes);
 app.use("/api/flights", flightRoutes);
 app.use("/api/destinations", destinationRoutes);
+app.use("/api/bookings", bookingRoutes);
