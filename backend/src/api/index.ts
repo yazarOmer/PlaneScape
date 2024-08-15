@@ -1,11 +1,11 @@
 import express from "express";
 import dotenv from "dotenv";
-import { connectDB } from "./db/index";
+import { connectDB } from "../db/index";
 dotenv.config({ path: "C:/Users/omer_/OneDrive/Masaüstü/PlaneScape/.env" });
-import authRoutes from "./routes/auth.route";
-import flightRoutes from "./routes/flight.route";
-import bookingRoutes from "./routes/booking.route";
-import destinationRoutes from "./routes/destinations.route";
+import authRoutes from "../routes/auth.route";
+import flightRoutes from "../routes/flight.route";
+import bookingRoutes from "../routes/booking.route";
+import destinationRoutes from "../routes/destinations.route";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 
