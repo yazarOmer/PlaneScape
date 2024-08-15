@@ -53,7 +53,7 @@ export const Header = () => {
             </p>
           </button>
           {isOpen && (
-            <div className="absolute bg-gray-200 min-w-[150px] flex flex-col text-center right-0 w-full p-2 mt-3 rounded-md ">
+            <div className="absolute z-10 bg-gray-200 min-w-[150px] flex flex-col text-center right-0 w-full p-2 mt-3 rounded-md ">
               <Link
                 to="/my-boards"
                 className="text-sm font-semibold p-2 rounded-md transition-all duration-200 hover:bg-slate-100"

@@ -1,4 +1,5 @@
 import { BookFlight } from "../components/BookFlight";
+import { Buttons } from "../components/Buttons";
 import { Header } from "../components/Header";
 
 export default function DashboardPage() {
@@ -10,7 +11,9 @@ export default function DashboardPage() {
           <div className="w-4/5 h-full">
             <BookFlight />
           </div>
-          <div className="bg-slate-800 w-1/5 h-full">buttons</div>
+          <div className="w-1/5 h-full">
+            <Buttons />
+          </div>
         </div>
       </div>
     </div>
