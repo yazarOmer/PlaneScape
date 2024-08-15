@@ -50,7 +50,6 @@ frontend
 In the .env file you should provide some key-values
 
 PORT=<number>
-MONGO_URI=<your mongodb database url>
 JWT_SECRET=<secret string key>
 
 # React + TypeScript + Vite
