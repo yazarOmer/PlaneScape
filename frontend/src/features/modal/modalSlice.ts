@@ -4,11 +4,13 @@ import { Flight } from "../../types";
 interface ModalState {
   isOpen: boolean;
   modalContent: Flight;
+  mode: "check" | "book" | "";
 }
 
 const initialState: ModalState = {
   isOpen: false,
   modalContent: {},
+  mode: "",
 };
 
 export const modalSlice = createSlice({
@@ -17,7 +19,8 @@ export const modalSlice = createSlice({
   reducers: {
     openModal: (state, action) => {
       state.isOpen = true;
-      state.modalContent = action.payload;
+      state.modalContent = action.payload.data;
+      state.mode = action.payload.mode;
     },
     closeModal: (state) => {
       state.isOpen = false;

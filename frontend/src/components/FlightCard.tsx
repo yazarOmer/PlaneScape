@@ -72,14 +72,21 @@ export const FlightCard = ({ data }: FlightCardProps) => {
             <p className="text-xs font-semibold text-zinc-500">{data.type}</p>
           </div>
 
-          <button className="bg-purple-900 text-white p-5 px-7 absolute bottom-0 right-0 rounded-tl-xl font-semibold hover:bg-purple-800 transition-all duration-200">
+          <button
+            onClick={() =>
+              dispatch(openModal({ data: data as Flight, mode: "book" }))
+            }
+            className="bg-purple-900 text-white p-5 px-7 absolute bottom-0 right-0 rounded-tl-xl font-semibold hover:bg-purple-800 transition-all duration-200"
+          >
             Book Flight
           </button>
         </div>
 
         <div className="absolute bottom-0 left-0 translate-y-full">
           <button
-            onClick={() => dispatch(openModal(data as Flight))}
+            onClick={() =>
+              dispatch(openModal({ data: data as Flight, mode: "check" }))
+            }
             className="p-3 px-5 bg-zinc-400/55 hover:bg-zinc-400/35 transition-all duration-200 rounded-b-md text-purple-900 text-sm font-semibold underline"
           >
             Check the Details
