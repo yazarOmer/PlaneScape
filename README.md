@@ -39,22 +39,22 @@ Display Booking
 ## Images
 
 ### Login Page
-![Login Page](public/login.png)
+![Login Page](frontend/public/login.png)
 
 ### Register Page
-![Register Page](public/register.png)
+![Register Page](frontend/public/register.png)
 
 ### Dashboard Page
-![Dashboard Page](public/dashboard.png)
+![Dashboard Page](frontend/public/dashboard.png)
 
 ### Flight List
-![Flight List](public/flights.png)
+![Flight List](frontend/public/flights.png)
 
 ### Flight Modal
-![Flight Modal](public/flight-modal.png)
+![Flight Modal](frontend/public/flight-modal.png)
 
 ### My Bookings Page
-![My Bookings Page](public/my-boards.png)
+![My Bookings Page](frontend/public/my-boards.png)
 
 ## Before İnstallation
 
