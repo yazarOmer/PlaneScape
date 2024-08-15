@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { InferRawDocType } from "mongoose";
 
 const flightSchema = new mongoose.Schema(
   {

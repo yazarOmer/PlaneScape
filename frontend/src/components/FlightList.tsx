@@ -89,7 +89,7 @@ export const FlightList = ({ departure, arrival, type }: FlightListProps) => {
           </div>
         )}
       </div>
-      {flights && (
+      {flights && flights.length > 0 && (
         <div className="w-1/4 ">
           <div className="flex flex-col gap-3">
             <label htmlFor="sort" className="text-sm font-semibold">
@@ -111,27 +111,11 @@ export const FlightList = ({ departure, arrival, type }: FlightListProps) => {
             <label htmlFor="sort" className="text-sm font-semibold">
               Arrival Time
             </label>
-            <div className="flex flex-col items-start mt-5 gap-2">
+            <div className="flex flex-col items-start mt-3 gap-2">
               <div className="flex items-center gap-1">
-                {/* <input
-                  onChange={(e) => timeCheckbox(e)}
-                  type="checkbox"
-                  name="am"
-                  id="am"
-                  value="am"
-                />
-                <label htmlFor="am">am</label> */}
                 <Checkbox data={"am"} onChange={timeCheckbox} />
               </div>
               <div className="flex items-center gap-1">
-                {/* <input
-                  onChange={(e) => timeCheckbox(e)}
-                  type="checkbox"
-                  name="pm"
-                  id="pm"
-                  value="pm"
-                />
-                <label htmlFor="pm">pm</label> */}
                 <Checkbox data={"pm"} onChange={timeCheckbox} />
               </div>
             </div>
@@ -140,7 +124,7 @@ export const FlightList = ({ departure, arrival, type }: FlightListProps) => {
             <label htmlFor="sort" className="text-sm font-semibold">
               Airlines Included
             </label>
-            <div className="flex flex-col items-start mt-5 gap-2">
+            <div className="flex flex-col items-start mt-3 gap-2">
               {airlines.map((airway, index) => (
                 <div key={index} className="flex items-center gap-1">
                   <Checkbox data={airway} onChange={checkboxHandle} />
