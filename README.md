@@ -74,7 +74,8 @@ Planescape
 
 In the .env file you should provide some key-values
 
-PORT=PORT_NUMBER
+
+MONGO_URI=YOUR_MONGODB_URI
 
 JWT_SECRET=YOUR_SECRET_JWT_SECRET
 
