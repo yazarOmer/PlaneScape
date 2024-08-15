@@ -1,3 +1,58 @@
+# Planescape
+
+## MERN Stack Flight Reservation Website
+
+### Tech Stack
+
+React.js
+
+Node.js
+
+Express.js
+
+MongoDB
+
+Redux(toolkit)
+
+Typescript
+
+Axios
+
+React Router Dom
+
+TailwindCSS
+
+React Hook Form
+
+Zod
+
+### Features
+
+Authentication and Authorization with Json Web Tokens (login, register, logout)
+
+Display Flights
+
+Create Booking
+
+Display Booking
+
+## Before İnstallation
+
+Create .env file root directory
+
+root directory must be like this
+
+Planescape
+backend
+frontend
+.env
+
+In the .env file you should provide some key-values
+
+PORT=<number>
+MONGO_URI=<your mongodb database url>
+JWT_SECRET=<secret string key>
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
@@ -18,11 +73,11 @@ export default tseslint.config({
   languageOptions: {
     // other options...
     parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
+      project: ["./tsconfig.node.json", "./tsconfig.app.json"],
       tsconfigRootDir: import.meta.dirname,
     },
   },
-})
+});
 ```
 
 - Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
@@ -31,11 +86,11 @@ export default tseslint.config({
 
 ```js
 // eslint.config.js
-import react from 'eslint-plugin-react'
+import react from "eslint-plugin-react";
 
 export default tseslint.config({
   // Set the react version
-  settings: { react: { version: '18.3' } },
+  settings: { react: { version: "18.3" } },
   plugins: {
     // Add the react plugin
     react,
@@ -44,7 +99,7 @@ export default tseslint.config({
     // other rules...
     // Enable its recommended rules
     ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
+    ...react.configs["jsx-runtime"].rules,
   },
-})
+});
 ```
