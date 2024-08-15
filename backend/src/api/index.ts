@@ -26,3 +26,5 @@ app.use("/api/auth", authRoutes);
 app.use("/api/flights", flightRoutes);
 app.use("/api/destinations", destinationRoutes);
 app.use("/api/bookings", bookingRoutes);
+
+app.get("/", (req, res) => res.send("Express on Vercel"));
