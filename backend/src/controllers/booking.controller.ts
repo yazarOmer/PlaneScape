@@ -18,9 +18,12 @@ export const createBooking = async (
   res: Response
 ) => {
   const userId = req.userId;
-  const bookingData = req.body;
+  const { selectedFlight, selectedExtras } = req.body;
 
-  const booking = new Booking({ userId, bookingData });
+  const booking = new Booking({
+    userId,
+    bookingData: { selectedFlight, selectedExtras },
+  });
   await booking.save();
 
   res.status(201).json(booking);

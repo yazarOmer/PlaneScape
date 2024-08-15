@@ -1,6 +1,10 @@
 import { useSelector } from "react-redux";
-import { RootState } from "../store/store";
+import { AppDispatch, RootState } from "../store/store";
 import { useState } from "react";
+import axios from "axios";
+import { toast } from "sonner";
+import { useDispatch } from "react-redux";
+import { closeModal } from "../features/modal/modalSlice";
 
 export const BookModal = () => {
   type extra = {
@@ -8,6 +12,7 @@ export const BookModal = () => {
     price: Number | undefined;
   };
   const { modalContent } = useSelector((state: RootState) => state.modal);
+  const dispatch = useDispatch<AppDispatch>();
 
   const [selectedPrice, setSelectedPrice] = useState<string>();
   const [selectedExtras, setSelectedExtras] = useState<extra[]>([]);
@@ -21,6 +26,18 @@ export const BookModal = () => {
       setSelectedExtras(
         selectedExtras.filter((item) => item.name !== value.name)
       );
+    }
+  };
+
+  const createBooking = async () => {
+    const response = await axios.post("http://localhost:5000/api/bookings/", {
+      selectedFlight: modalContent,
+      selectedExtras,
+    });
+
+    if (response.status == 201) {
+      toast.success("Created booking successfully");
+      dispatch(closeModal());
     }
   };
 
@@ -117,7 +134,10 @@ export const BookModal = () => {
         </button>
       </div>
 
-      <button className="bg-violet-950 text-white h-10 w-full mt-5 rounded-md hover:bg-violet-900 transition-all duration-150">
+      <button
+        onClick={() => createBooking()}
+        className="bg-violet-950 text-white h-10 w-full mt-5 rounded-md hover:bg-violet-900 transition-all duration-150"
+      >
         Create a booking
       </button>
     </div>
